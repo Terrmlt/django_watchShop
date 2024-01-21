@@ -1,0 +1,25 @@
+{% extends 'site-layout.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="products-catagories-area clearfix">
+        <div class="amado-pro-catagory clearfix">
+
+            {% for watch in watches %}
+                <div class="single-products-catagory clearfix p-3 bg-light">
+                    <a href="{% url 'main:detail' watch.id %}">
+                        <img src="{{ watch.cover.url }}" alt="">
+
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <p>{{ watch.price }} $</p>
+                            <h4>{{ watch.model }}</h4>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

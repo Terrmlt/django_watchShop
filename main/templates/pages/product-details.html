@@ -1,0 +1,78 @@
+{% extends 'site-layout.html' %}
+{% load static %}
+{% block content %}
+    <div class="single-product-area section-padding-100 clearfix">
+        <div class="container-fluid">
+
+
+            <div class="row">
+                <div class="col-12 col-lg-7">
+                    <div class="single_product_thumb">
+                        <div id="product_details_slider" class="carousel slide" data-ride="carousel">
+
+                            <ol class="carousel-indicators">
+                                <li class="active" data-target="#product_details_slider" data-slide-to="0"
+                                    style="background-image: url({{ watch.cover.url }});">
+                                </li>
+                                {% for image in watch.images.all %}
+                                    <li data-target="#product_details_slider" data-slide-to="{{ forloop.counter }}"
+                                        style="background-image: url({{ image.image.url }});">
+                                    </li>
+                                {% endfor %}
+                            </ol>
+
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <a class="gallery_img" href="{{ watch.cover.url }}">
+                                        <img class="d-block w-100" src="{{ watch.cover.url }}" alt="First slide">
+                                    </a>
+                                </div>
+
+                                {% for image in watch.images.all %}
+                                    <div class="carousel-item">
+                                        <a class="gallery_img" href="{{ image.image.url }}">
+                                            <img class="d-block w-100" src="{{ image.image.url }}" alt="Fourth slide">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-12 col-lg-5">
+                    <div class="single_product_desc">
+                        <div class="product-meta-data">
+                            <div class="line"></div>
+                            <p class="product-price">{{ watch.price }} $</p>
+                            <h6>{{ watch.model }}</h6>
+                        </div>
+
+                        <div class="short_overview my-5">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quae eveniet culpa
+                                officia
+                                quidem mollitia impedit iste asperiores nisi reprehenderit consequatur, autem, nostrum
+                                pariatur enim?</p>
+                        </div>
+
+                        {% if user.is_authenticated %}
+                            <form class="cart clearfix" method="post" action="{% url 'cart:add_in_cart' watch.id %}">
+                                {% csrf_token %}
+                                
+                                <button type="submit"
+                                        name="addtocart"
+                                        value="5"
+                                        class="btn amado-btn">
+                                    Добавить в корзину
+                                </button>
+                            </form>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

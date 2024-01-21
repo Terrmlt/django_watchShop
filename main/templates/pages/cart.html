@@ -1,0 +1,82 @@
+{% extends 'site-layout.html' %}
+{% load static %}
+{% block content %}
+    <div class="cart-table-area section-padding-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+
+                    <div class="cart-title mt-50">
+                        <h2>Корзина</h2>
+                    </div>
+
+                    {% if cart.cart_watches|length != 0 %}
+                        <div class="cart-table clearfix">
+                            <table class="table table-responsive">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Название</th>
+                                    <th>Цена</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for watch in cart.cart_watches %}
+                                    <tr>
+                                        <td class="cart_product_img">
+                                            <a href="{% url 'main:detail' watch.id %}">
+                                                <img src="{{ watch.cover.url }}" style="max-height: 148px"
+                                                     alt="Product">
+                                            </a>
+                                        </td>
+
+                                        <td class="cart_product_desc">
+                                            <a href="{% url 'main:detail' watch.id %}">
+                                                <h5>{{ watch.model }}</h5>
+                                            </a>
+                                        </td>
+
+                                        <td class="price"><span>{{ watch.price }} $</span></td>
+                                        <td>
+                                            <form method="post" action="{% url 'cart:remove_from_cart' watch.id %}">
+                                                {% csrf_token %}
+                                                <button class="btn-outline-danger px-3 py-1"
+                                                        style="cursor: pointer"
+                                                        type="submit">
+                                                    Удалить
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <span>Корзина пуста...</span>
+                    {% endif %}
+
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="cart-summary">
+                        <h5>Итого</h5>
+                        <ul class="summary-table">
+                            <li>
+                                <span>Количество:</span> <span>{{ cart.cart_watches|length }} шт.</span>
+                                <span>Цена:</span> <span>{{ cart.total_price }} $</span>
+                            </li>
+                        </ul>
+
+                        <div class="cart-btn mt-100">
+                            <a href="{% url 'main:checkout' %}" class="btn amado-btn w-100">Купить</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'site-layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="shop_sidebar_area">
+        <form>
+            <div class="widget brands mb-50">
+                <h6 class="widget-title mb-30">Бренды</h6>
+                <div class="widget-desc">
+                    {% for brand in brands %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="{{ brand.name }}">
+                            <label class="form-check-label" for="{{ brand.name }}">{{ brand.name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="widget price mb-50">
+                <h6 class="widget-title mb-30">Цена</h6>
+                <div class="widget-desc">
+                    <input min="0" max="100" type="range" class="m-0">
+                </div>
+            </div>
+            <button type="submit" class="btn-outline-success px-3 py-1">Применить</button>
+        </form>
+    </div>
+
+    <div class="amado_product_area section-padding-100">
+        <div class="container-fluid">
+            <div class="row">
+
+                {% for watch in watch_list %}
+                    <div class="col-12 col-sm-6 col-md-12 col-xl-6" style="max-height: 541px">
+                        <div class="single-product-wrapper">
+                            <a href="{% url 'main:detail' watch.id %}">
+                                <div class="product-img" style="object-fit: cover; max-height: 393px">
+                                    <img src="{{ watch.cover.url }}" alt="...">
+                                </div>
+                            </a>
+
+                            <div class="product-description d-flex align-items-center justify-content-between">
+                                <div class="product-meta-data">
+                                    <div class="line"></div>
+                                    <p class="product-price">{{ watch.price }} $</p>
+
+                                    <a href="{% url 'main:detail' watch.id %}">
+                                        <h6>{{ watch.model }}</h6>
+                                    </a>
+                                </div>
+
+                                {% if user.is_authenticated %}
+                                    <div class="ratings-cart text-right">
+                                        <div class="cart">
+                                            <form method="post" action="{% url 'cart:add_in_cart' watch.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit"
+                                                        style="border: none; background: none; cursor: pointer"
+                                                        data-toggle="tooltip"
+                                                        data-placement="left"
+                                                        title="Добавить в корзину">
+                                                    <img src="{% static 'img/core-img/cart.png' %}" alt="...">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'auth_layout.html' %}
+
+{% block content %}
+
+    <section class="bg-body-tertiary p-3 card">
+        <h3>Авторизация</h3>
+
+        {{ form.non_field_errors }}
+
+        <form method="post" class="d-flex flex-column mb-3" style="gap: 1rem">
+            {% csrf_token %}
+            <div>
+                <label for="{{ form.username.id_for_label }}" class="form-label">Логин</label>
+                {{ form.username }}
+            </div>
+            <div>
+                <label for="{{ form.password.id_for_label }}" class="form-label">Пароль</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="d-block btn btn-primary">Войти</button>
+            <a href="{% url 'appauth:registration' %}">Нет аккаунта? Зарегестрируйтесь!</a>
+        </form>
+    </section>
+
+{% endblock %}

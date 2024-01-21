@@ -1,0 +1,49 @@
+.main-content-wrapper .header-area .amado-nav li button {
+    font-size: 14px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    padding: 20px 0;
+    display: block;
+    line-height: 0.9;
+    color: #131212;
+    font-weight: normal;
+    border: none;
+    transition: all 500ms ease 0s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.main-content-wrapper .header-area .amado-nav li button::after {
+    width: 30px;
+    height: 3px;
+    position: absolute;
+    top: 50%;
+    margin-top: -1.5px;
+    left: -150px;
+    background-color: #fbb710;
+    z-index: 10;
+    content: '';
+    transition: all 500ms ease 0s;
+}
+
+.main-content-wrapper .header-area .amado-nav li button:hover,
+.main-content-wrapper .header-area .amado-nav li button:focus {
+    color: #fbb710;
+}
+
+.main-content-wrapper .header-area .amado-nav li:hover button::after,
+.main-content-wrapper .header-area .amado-nav li:focus button::after {
+    left: -75px;
+}
+
+.main-content-wrapper .header-area .cart-fav-search button:hover,
+.main-content-wrapper .header-area .cart-fav-search button:focus {
+    color: #fbb710;
+}
+
+.fix-text {
+    font-family: helveticaneuemedium, serif;
+    font-size: 14px !important;
+}
+

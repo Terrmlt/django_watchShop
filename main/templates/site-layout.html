@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block title %}
+        <title>Amado - Цифровой магазин часов | Главная</title>
+    {% endblock %}
+
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/core-style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+<div class="search-wrapper section-padding-100">
+    <div class="search-close">
+        <i class="fa fa-close" aria-hidden="true"></i>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="search-content">
+                    <form action="#" method="get">
+                        <input type="search" name="search" id="search" placeholder="Поиск">
+                        <button type="submit">
+                            <img src="{% static 'img/core-img/search.png' %}" alt="...">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-content-wrapper d-flex clearfix">
+
+    <div class="mobile-nav">
+        <div class="amado-navbar-brand">
+            <a href="{% url 'main:home' %}">
+                <img src="{% static 'img/core-img/logo.png' %}" alt="">
+            </a>
+        </div>
+
+        <div class="amado-navbar-toggler">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <header class="header-area clearfix">
+        <div class="nav-close">
+            <i class="fa fa-close" aria-hidden="true"></i>
+        </div>
+
+        <div class="logo">
+            <a href="{% url 'main:home' %}">
+                <img src="{% static 'img/core-img/logo.png' %}" alt="">
+            </a>
+        </div>
+
+        <nav class="amado-nav">
+            <ul>
+                <li class="{% if request.path == '/' %}active{% endif %}">
+                    <a href="{% url 'main:home' %}">Главная</a>
+                </li>
+
+                <li class="{% if request.path == '/shop/' %}active{% endif %}">
+                    <a href="{% url 'main:shop' %}">Магазин</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <li class="{% if request.path == '/cart/' %}active{% endif %}">
+                        <a href="{% url 'main:cart' %}">Корзина <span>({{ cart.cart_watches|length }})</span>
+                            <img src="{% static 'img/core-img/cart.png' %}" alt="">
+                        </a>
+                    </li>
+
+                    <li>
+                        <form method="post" action="{% url 'appauth:logout' %}">
+                            {% csrf_token %}
+                            <button class="btn-link" type="submit">Выйти</button>
+                        </form>
+                    </li>
+
+                {% else %}
+                    <li><a href="{% url 'appauth:login' %}">Войти</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="cart-fav-search mb-100">
+            <a href="#" class="search-nav fix-text">
+                Поиск
+                <img src="{% static 'img/core-img/search.png' %}" alt=""/>
+            </a>
+        </div>
+
+    </header>
+
+    {% block content %}{% endblock %}
+</div>
+
+
+<footer class="footer_area clearfix">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-4">
+                <div class="single_widget_area">
+
+                    <div class="footer-logo mr-50">
+                        <a href="{% url 'main:home' %}">
+                            <img src="{% static 'img/core-img/logo2.png' %}" alt="">
+                        </a>
+                    </div>
+
+                    <p class="copywrite">
+                        Создана усталыми силами | Саши Растаргуева &copy;<script>document.write(new Date().getFullYear());</script>
+                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-8">
+                <div class="single_widget_area">
+                    <div class="footer_menu">
+                        <nav class="navbar navbar-expand-lg justify-content-end">
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#footerNavContent" aria-controls="footerNavContent"
+                                    aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="footerNavContent">
+                                <ul class="navbar-nav ml-auto">
+                                    <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                                        <a class="nav-link" href="{% url 'main:home' %}">Главная</a>
+                                    </li>
+
+                                    <li class="nav-item {% if request.path == '/shop/' %}active{% endif %}">
+                                        <a class="nav-link" href="{% url 'main:shop' %}">Магазин</a>
+                                    </li>
+
+                                    <li class="nav-item {% if request.path == '/cart/' %}active{% endif %}">
+                                        <a class="nav-link" href="{% url 'main:cart' %}">Корзина</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/active.js' %}"></script>
+
+</body>
+</html>
